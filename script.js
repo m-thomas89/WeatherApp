@@ -9,7 +9,6 @@ var cHumidity= $("#humidity");
 var cWSpeed=$("#wind-speed");
 var cUVIndex= $("#uv-index");
 var cCity=[];
-
 // searches the city to see if it exists in the entries from the storage
 function find(c){
     for (var i=0; i<cCity.length; i++){
@@ -122,3 +121,50 @@ function forecast(cityid){
         
     });
 }
+
+//Add the city on the search history after the previously added city 
+function addToList(c){
+    var listEl= $("<li>"+c.toUpperCase()+"</li>");
+    $(listEl).attr("class","list-group-item");
+    $(listEl).attr("data-value",c.toUpperCase());
+    $(".list-group").append(listEl);
+}
+// Display the past search again when the list group item is clicked in search history
+function invokePastSearch(event){
+    var liEl=event.target;
+    if (event.target.matches("li")){
+        city=liEl.textContent.trim();
+        currentWeather(city);
+    }
+
+}
+
+// Create a render function
+function loadlastCity(){
+    $("ul").empty();
+    var cCity = JSON.parse(localStorage.getItem("cityname"));
+    if(cCity!==null){
+        cCity=JSON.parse(localStorage.getItem("cityname"));
+        for(i=0; i<cCity.length;i++){
+            addToList(cCity[i]);
+        }
+        city=cCity[i-1];
+        currentWeather(city);
+    }
+
+}
+// Need to to be able to clear the history
+function clearHistory(event){
+    event.preventDefault();
+    cCity=[];
+    localStorage.removeItem("cityname");
+    document.location.reload();
+
+}
+//Need to add click Handlers
+$("#search-button").on("click",displayWeather);
+$(document).on("click",invokePastSearch);
+$(window).on("load",loadlastCity);
+$("#clear-history").on("click",clearHistory);
+
+
