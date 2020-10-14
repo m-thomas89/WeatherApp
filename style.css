@@ -1,0 +1,30 @@
+/* The code below ensures that all elements are sized in this more intuitive way. */
+*{
+    box-sizing: border-box;
+    
+}
+
+/* Body of thepage */
+body {
+    background-color:white;
+    font-size: 20px;
+    font-family:'Times New Roman', Times, serif
+    
+}
+/* 5 day forcast style  */
+h3{
+    font-weight: bold;
+}
+/* Font size for the 5 day forcast */
+.forecast{
+    
+    font-size: 1em;
+}
+span{
+    font-size: 1em;
+}
+/* Change color when mouse hovers over previously search cities */
+li:hover{
+    background-color: rgb(71, 148, 224);;
+    text-decoration: underline;
+}
